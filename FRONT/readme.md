@@ -74,3 +74,5 @@ CSS.
 3.- crear archivo .prettierrc -> ir configuracion -> format -> marcar la primera casilla -> elegir prettier
 
 4.- crear archivo postcss.config.js en la raiz del proyecto y luego el archivo tailwindcss.config.js
+
+5.- crear dentro de src carpetas: layout, components, context, pages, services
