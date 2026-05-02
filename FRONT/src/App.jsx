@@ -1,11 +1,12 @@
 import { Routes, Route } from 'react-router'
 import Layout from './layout/Layout'
+import Home from './pages/Home'
 
 function App() {
     return (
         <Routes>
             <Route element={<Layout />}>
-                <h1 className="text-8xl text-orange-500">app</h1>
+                <Route path="/" element={<Home />}></Route>
             </Route>
         </Routes>
     )
