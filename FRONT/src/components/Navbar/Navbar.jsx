@@ -1,5 +1,6 @@
 import AuthButtons from './AuthButtons'
 import Cart from './Cart'
+import UserDropDown from './UserDropDown'
 
 const Navbar = () => {
     return (
@@ -14,6 +15,7 @@ const Navbar = () => {
                 <div className="navbar-end gap-3">
                     <a className="btn btn-primary">Dashboard</a>
                     <Cart />
+                    <UserDropDown />
                 </div>
             </nav>
         </header>
