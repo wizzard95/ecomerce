@@ -51,6 +51,39 @@ const RegisterForm = () => {
                     </p>
                 )}
             </div>
+            <div>
+                <input
+                    {...register('email', {
+                        required: 'El email es requerido',
+                        pattern: {
+                            value: /^(?!\.)(?!.*\.\.)([a-z0-9_'+\-\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\-]*\.)+[a-z]{2,}$/,
+                            message: 'Correo electrónico inválido',
+                        },
+                        minLength: {
+                            value: 6,
+                            message: 'Mínimo 6 caracteres',
+                        },
+                        maxLength: {
+                            value: 254,
+                            message: 'Máximo de 254 caracteres',
+                        },
+                    })}
+                    className={`p-2 outline-2 rounded border focus:outline-primary w-full ${
+                        errors.email
+                            ? 'border-red-500 outline-red-500 focus:outline-red-500'
+                            : ''
+                    }`}
+                    autoComplete="email"
+                    name="email"
+                    placeholder="Correo Electrónico"
+                    type="text"
+                />
+                {errors.email && (
+                    <p className="text-red-500 text-sm mt-2 ml-1">
+                        {errors.email.message}
+                    </p>
+                )}
+            </div>
         </form>
     )
 }
