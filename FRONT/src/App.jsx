@@ -1,11 +1,13 @@
-import Navbar from './components/Navbar/Navbar'
+import { Routes, Route } from 'react-router'
+import Layout from './layout/Layout'
 
 function App() {
     return (
-        <>
-            <Navbar />
-            <h1 className="text-8xl text-orange-500">app</h1>
-        </>
+        <Routes>
+            <Route element={<Layout />}>
+                <h1 className="text-8xl text-orange-500">app</h1>
+            </Route>
+        </Routes>
     )
 }
 
