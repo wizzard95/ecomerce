@@ -9,9 +9,9 @@ const AuthButtons = () => {
 
             <div className="hidden lg:block">|</div>
 
-            <button className="btn btn-neutral btn-outline">
+            <Link className="btn btn-neutral btn-outline" to={'/login'}>
                 Iniciar sesión
-            </button>
+            </Link>
         </div>
     )
 }
