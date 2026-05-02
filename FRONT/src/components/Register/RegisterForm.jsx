@@ -12,6 +12,8 @@ const RegisterForm = () => {
         mode: 'onChange', // ? validacion en tiempo real
     })
 
+    const [showPassword, setShowPassword] = useState(false)
+
     const onSubmit = (data) => {
         // ? registrando al usuario
     }
@@ -105,8 +107,25 @@ const RegisterForm = () => {
                     }`}
                     autoComplete="current-password"
                     placeholder="Contraseña"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                 />
+                <button
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={
+                        showPassword
+                            ? 'Ocultar contraseña'
+                            : 'Mostrar contraseña'
+                    }
+                    type="button"
+                    className="cursor-pointer absolute right-4 top-[20px] transform
+                    -translate-y-1/2 text-gray-600"
+                >
+                    {showPassword ? (
+                        <FaEyeSlash size={23} />
+                    ) : (
+                        <FaEye size={23} />
+                    )}
+                </button>
                 {errors.password && (
                     <p className="text-red-500 text-sm mt-2 ml-1">
                         {errors.password.message}
