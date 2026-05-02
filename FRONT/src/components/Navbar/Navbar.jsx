@@ -10,7 +10,7 @@ const Navbar = () => {
                     </a>
                 </div>
                 <div className="navbar-end gap-3">
-                    <a className="btb btn-primary">Dashboard</a>
+                    <a className="btn btn-primary">Dashboard</a>
                     <Cart />
                 </div>
             </nav>
