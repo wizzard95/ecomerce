@@ -16,6 +16,8 @@ const RegisterForm = () => {
 
     const onSubmit = (data) => {
         // ? registrando al usuario
+        console.log(data)
+        reset()
     }
 
     return (
@@ -132,6 +134,9 @@ const RegisterForm = () => {
                     </p>
                 )}
             </div>
+            <button className="btn btn-primary" type="submit">
+                Registrarse
+            </button>
         </form>
     )
 }
