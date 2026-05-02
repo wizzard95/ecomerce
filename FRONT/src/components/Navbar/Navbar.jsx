@@ -1,8 +1,10 @@
+import AuthButtons from './AuthButtons'
 import Cart from './Cart'
 
 const Navbar = () => {
     return (
         <header>
+            <AuthButtons />
             <nav className="navbar bg-base-100 shadow-sm lg:rounded-box w-full">
                 <div className="navbar-start">
                     <a className="btn btn-ghost text-xl" to="/">
