@@ -84,6 +84,35 @@ const RegisterForm = () => {
                     </p>
                 )}
             </div>
+            <div className="relative">
+                <input
+                    {...register('password', {
+                        required:
+                            'La constraseña es requerida [6-254 caracteres de longitud]',
+                        minLength: {
+                            value: 6,
+                            message: 'Mínimo 6 caracteres',
+                        },
+                        maxLength: {
+                            value: 254,
+                            message: 'Máximo 254 caracteres',
+                        },
+                    })}
+                    className={`p-2 outline-2 rounded border focus:outline-primary w-full ${
+                        errors.password
+                            ? 'border-red-500 outline-red-500 focus:outline-red-500'
+                            : ''
+                    }`}
+                    autoComplete="current-password"
+                    placeholder="Contraseña"
+                    type="password"
+                />
+                {errors.password && (
+                    <p className="text-red-500 text-sm mt-2 ml-1">
+                        {errors.password.message}
+                    </p>
+                )}
+            </div>
         </form>
     )
 }
