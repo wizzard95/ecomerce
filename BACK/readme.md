@@ -46,3 +46,11 @@ cross-env: 10.0.0
 es una herramienta para definir variables de entorno de manera compatible entre sistemas operativos (windows, mac, linux)
 
 3.- crear archivo .prettierrc
+
+<!-- TODO MONGO -->
+<!-- * USERNAME: ecomercemongo_db_user-->
+<!-- * PASSWORD: GPTGxMKmFcqdOy5D  -->
+
+npm install mongoose@8.17.1
+
+mongodb+srv://ecomercemongo_db_user:GPTGxMKmFcqdOy5D@ecomercecluster.msxzvkc.mongodb.net/?appName=ecomerceCluster
