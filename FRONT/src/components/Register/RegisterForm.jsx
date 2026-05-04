@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { registerService } from '../../services/authServices'
 
 const RegisterForm = () => {
     const {
@@ -16,8 +17,8 @@ const RegisterForm = () => {
 
     const onSubmit = (data) => {
         // ? registrando al usuario
-        console.log(data)
-        reset()
+        /* console.log(data) */
+        registerService(data, reset)
     }
 
     return (
