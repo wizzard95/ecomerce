@@ -16,7 +16,21 @@ export const registerUser = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: 'El usuario ya existe' })
         }
-        // *
+        // * Encriptar la contraseña
+        const hashedPassword = await bcrypt.hash(password, 10)
+
+        // * Comprobar el usuario admin
+        const isFirstUser = (await UserModel.countDocuments()) === 0
+
+        // * crear el usuario y guardar en bd
+        const newUser = await UserModel.create({
+            username,
+            email,
+            password: hashedPassword,
+            isAdmin: isFirstUser,
+        })
+        console.log(newUser)
+        res.json({ newUser: newUser })
     } catch (error) {
         res.json(error)
     }
