@@ -3,6 +3,7 @@ import express from 'express'
 import dotenv from 'dotenv' // ? SIRVE PARA LEER LAS VARIABLES DE ENTORNO .ENV
 import authRoutes from './routes/authRoutes.js'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
@@ -23,6 +24,8 @@ app.use(
         credentials: true, // ? permite que la cookie viaje al backend
     })
 )
+//* otra configuracion para poder recibir las cookies desde el frontend
+app.use(cookieParser())
 
 app.use(express.json())
 
