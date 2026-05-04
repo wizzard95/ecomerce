@@ -54,3 +54,5 @@ es una herramienta para definir variables de entorno de manera compatible entre 
 npm install mongoose@8.17.1
 
 mongodb+srv://ecomercemongo_db_user:GPTGxMKmFcqdOy5D@ecomercecluster.msxzvkc.mongodb.net/?appName=ecomerceCluster
+
+JWT_SECRET=ecomercejson123
