@@ -15,10 +15,10 @@ export const UserContextProvider = ({ children }) => {
     // * funcion para verificar la sesion del usuario
     const checkSession = useCallback(async () => {
         try {
-            /* //? const userData = await getProfileService()
-             * //? setUserInfo(userData)
-             * a traves de esta funcion haremos una peticion a nuestro backend
-             * para checar la informacion del usuario en especifico*/
+            const userData = await getProfileService()
+            setUserInfo(userData)
+            /* a traves de esta funcion haremos una peticion a nuestro backend
+             para checar la informacion del usuario en especifico*/
         } catch (error) {
             console.log('No hay sesion activa: ', error)
             setUserInfo({})
