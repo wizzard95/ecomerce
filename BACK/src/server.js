@@ -8,6 +8,8 @@ import cookieParser from 'cookie-parser'
 dotenv.config()
 
 const app = express()
+// Confianza en proxies para obtener IP real del cliente cuando se usa un proxy inverso (como el dev proxy de Vite)
+app.set('trust proxy', true)
 
 // * configuracion para que el backend reciba correctamente las peticiones
 // * desde el front
