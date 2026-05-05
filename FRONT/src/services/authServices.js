@@ -3,7 +3,8 @@
 import axios from 'axios'
 
 // * Configuracion base de axios para autenticacion
-const API_URL = import.meta.env.VITE_BACKEND_URL + '/auth'
+// Uso de rutas relativas con proxy de desarrollo (vite) para evitar CORS y cookies cross-origin
+const API_URL = '/api/auth'
 //* http://localhost:3001/api/auth/register
 
 // * para incluir la cookie en las peticiones
@@ -12,7 +13,14 @@ axios.defaults.withCredentials = true
 //* peticion GET hacie el backend para ver si el usuario esta autenticado
 export const getProfileService = async () => {
     try {
+        // Si existe un token en localStorage, incluirlo en la cabecera Authorization
+        const token = localStorage.getItem('token')
+        console.log('Token en getProfileService:', token)
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        }
         const response = await axios.get(`${API_URL}/profile`)
+        console.log('RESPONSE A /profile', response)
         return response.data
     } catch (error) {
         console.log(error)
@@ -20,7 +28,24 @@ export const getProfileService = async () => {
     }
 }
 
-export const loginService = async () => {}
+export const loginService = async (data) => {
+    try {
+        const response = await axios.post(`${API_URL}/login`, data, {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+        })
+        // Si el backend devuelve un token, guardarlo y configurar cabecera
+        const token = response.data?.token
+        if (token) {
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        }
+        return response.data
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
 
 export const registerService = async (
     data,
@@ -35,6 +60,13 @@ export const registerService = async (
         })
         console.log('RESPUESTA:', response)
         if (response.status === 201 || response.status === 200) {
+            // Al recibir token en respuesta, guardarlo localmente para autenticación en desarrollo
+            const token = response.data?.token
+            if (token) {
+                localStorage.setItem('token', token)
+                axios.defaults.headers.common['Authorization'] =
+                    `Bearer ${token}`
+            }
             alert('REGISTRO EXITOSO DEL USUARIO')
             reset()
         }

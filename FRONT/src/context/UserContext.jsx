@@ -5,6 +5,7 @@ import {
     useEffect,
     useCallback,
 } from 'react'
+import { getProfileService } from '../services/authServices'
 
 export const UserContext = createContext({})
 
