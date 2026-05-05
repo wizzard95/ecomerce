@@ -9,7 +9,16 @@ const API_URL = import.meta.env.VITE_BACKEND_URL + '/auth'
 // * para incluir la cookie en las peticiones
 axios.defaults.withCredentials = true
 
-export const getProfileService = async () => {}
+//* peticion GET hacie el backend para ver si el usuario esta autenticado
+export const getProfileService = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/profile`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+        throw new Error('Error al obtener el perfil')
+    }
+}
 
 export const loginService = async () => {}
 
