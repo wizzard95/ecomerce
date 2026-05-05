@@ -52,3 +52,11 @@ export const registerUser = async (req, res) => {
         res.json(error)
     }
 }
+
+// * Profile
+export const profile = async (req, res) => {
+    // * extraer el accessToken enviado por el cliente
+    console.log('req.cookies', req.cookies)
+    const token = req.cookies.accessToken
+    console.log('token', token)
+}
