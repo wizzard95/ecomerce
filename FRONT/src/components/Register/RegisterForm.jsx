@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from '../../context/UserContext'
 import { useForm } from 'react-hook-form'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { registerService } from '../../services/authServices'
@@ -13,6 +14,8 @@ const RegisterForm = () => {
         mode: 'onChange', // ? validacion en tiempo real
     })
 
+    const { userInfo } = useContext(UserContext)
+
     const [showPassword, setShowPassword] = useState(false)
 
     const onSubmit = (data) => {
@@ -20,7 +23,7 @@ const RegisterForm = () => {
         /* console.log(data) */
         registerService(data, reset)
     }
-
+    console.log(userInfo)
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
