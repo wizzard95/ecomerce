@@ -67,11 +67,20 @@ export const registerService = async (
                 axios.defaults.headers.common['Authorization'] =
                     `Bearer ${token}`
             }
-            alert('REGISTRO EXITOSO DEL USUARIO')
+            //alert('REGISTRO EXITOSO DEL USUARIO')
+            // * Verificar la sesion real del servidor despues del registro
+            await checkSession()
             reset()
+            setRedirect(true)
+
+            return {
+                message: true,
+            }
         }
     } catch (error) {
-        alert('Error al registrarse', error)
+        return {
+            message: false,
+        }
     }
 }
 
