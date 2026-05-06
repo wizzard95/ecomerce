@@ -61,7 +61,7 @@ export const getUserFromToken = async (decoded, res) => {
             return res.status(404).json({ message: 'Usuario no encontrado' })
         }
         console.log(
-            'USUARIO ENCONTRADO CON EXITO y enciando al front datos del usuario'
+            'USUARIO ENCONTRADO CON EXITO y enviando al front datos del usuario'
         )
         return res.status(200).json({
             id: user._id,
@@ -69,8 +69,8 @@ export const getUserFromToken = async (decoded, res) => {
             isAdmin: user.isAdmin,
             username: user.username,
         })
-    } catch (err) {
-        return res.status(500).json({ message: 'Error al obtener usuario' })
+    } catch (error) {
+        res.status(401).json({ message: 'No autorizado' })
     }
 }
 
