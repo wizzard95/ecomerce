@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { UserContext } from '../../context/UserContext'
+import { UserContext, useUser } from '../../context/UserContext'
 import { useForm } from 'react-hook-form'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { registerService } from '../../services/authServices'
@@ -17,7 +17,8 @@ const RegisterForm = () => {
     })
 
     //* acceso a la informacion del usuario
-    const { userInfo, checkSession } = useContext(UserContext)
+    const { userInfo, checkSession } = useUser()
+    //const { userInfo, checkSession } = useContext(UserContext)
 
     const [showPassword, setShowPassword] = useState(false)
 
