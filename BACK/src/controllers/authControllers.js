@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import UserModel from '../models/UserModel.js'
-import { registerSchema } from '../schemas/authSchema.js'
+import { registerSchema, loginSchema } from '../schemas/authSchema.js'
+import { ZodError } from 'zod'
 
 export const registerUser = async (req, res) => {
     try {
@@ -60,9 +61,9 @@ export const getUserFromToken = async (decoded, res) => {
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' })
         }
-        console.log(
+        /*  console.log(
             'USUARIO ENCONTRADO CON EXITO y enviando al front datos del usuario'
-        )
+        ) */
         return res.status(200).json({
             id: user._id,
             email: user.email,
@@ -85,12 +86,12 @@ export const profile = async (req, res) => {
         token = req.cookies.accessToken
     }
 
-    console.log('token (header/cookie):', token)
+    /* console.log('token (header/cookie):', token)
     console.log('Remote address (req.ip):', req.ip)
     console.log('X-Forwarded-For:', req.headers['x-forwarded-for'])
     // Debug: ver detalles de la cabecera y la cookie
     console.log('Authorization header:', req.headers.authorization)
-    console.log('req.cookies.accessToken:', req.cookies?.accessToken)
+    console.log('req.cookies.accessToken:', req.cookies?.accessToken)*/
 
     // * Opcional: verificar token si existe
     if (token) {
@@ -111,35 +112,61 @@ export const profile = async (req, res) => {
 }
 
 // * Login
+
 export const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body
-        // Buscar usuario por email
+        //* obtener la clave secreta del entorno
+        const JWT_SECRET = process.env.JWT_SECRET
+
+        //* extraer el emial y contraseña del cuerpo de la peticion, ademas validarla
+        const { email, password } = loginSchema.parse(req.body)
+        //res.json({ email: email, password: password })
+
+        //* Buscar usuario por email
         const user = await UserModel.findOne({ email })
+        //res.json(user)
         if (!user) {
             return res.status(400).json({ message: 'Credenciales inválidas' })
         }
-        // Verificar password
-        const isMatch = await bcrypt.compare(password, user.password)
-        if (!isMatch) {
+        //* Comparar las contraseñas
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        //res.json({ passwordvalid: isPasswordValid })
+        if (!isPasswordValid) {
             return res.status(400).json({ message: 'Credenciales inválidas' })
         }
-        // Generar token
-        const JWT_SECRET = process.env.JWT_SECRET
-        const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
-            expiresIn: '1h',
-        })
-
-        // Enviar token como cookie (y también en cuerpo para desarrollo)
+        // * Generar token
+        const token = jwt.sign(
+            { userId: user._id, username: user.username },
+            JWT_SECRET,
+            {
+                expiresIn: '1h',
+            }
+        )
+        const userData = {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        }
         res.cookie('accessToken', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // true
             sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
             maxAge: 60 * 60 * 1000,
         })
+
             .status(200)
-            .json({ message: 'Login exitoso', token })
+            .json(userData)
     } catch (error) {
-        res.status(500).json({ message: 'Error al iniciar sesión' })
+        if (error instanceof ZodError) {
+            return res
+                .status(400)
+                .json(error.issues.map((issue) => ({ message: issue.message })))
+        }
+
+        res.status(500).json({
+            message: 'Error al iniciar sesión',
+            error: error,
+        })
     }
 }

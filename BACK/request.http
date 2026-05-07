@@ -1,0 +1,18 @@
+### * USER REGISTER
+POST http://localhost:3001/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "marcela",
+    "email": "marcela@gmail.com",
+    "password": "123456"
+
+}
+### * LOGIN USER 
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "marcela@gmail.com",
+    "password": "123456"
+}
