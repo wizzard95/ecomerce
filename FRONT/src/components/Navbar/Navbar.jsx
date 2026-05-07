@@ -23,7 +23,7 @@ const Navbar = () => {
                     )}
 
                     <Cart />
-                    <UserDropDown />
+                    {!loading && userInfo?.username && <UserDropDown />}
                 </div>
             </nav>
         </header>
