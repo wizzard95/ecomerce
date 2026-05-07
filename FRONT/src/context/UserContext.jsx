@@ -21,7 +21,7 @@ export const UserContextProvider = ({ children }) => {
             /* a traves de esta funcion haremos una peticion a nuestro backend
              para checar la informacion del usuario en especifico*/
         } catch (error) {
-            console.log('No hay sesion activa: ', error)
+            //console.log('No hay sesion activa: ', error)
             setUserInfo({})
         } finally {
             setLoading(false)

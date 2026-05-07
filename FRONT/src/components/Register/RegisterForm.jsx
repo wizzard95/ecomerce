@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react'
-import { UserContext, useUser } from '../../context/UserContext'
+import { useState } from 'react'
+import { useUser } from '../../context/UserContext'
 import { useForm } from 'react-hook-form'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { registerService } from '../../services/authServices'

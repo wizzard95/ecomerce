@@ -2,8 +2,12 @@ import { Link } from 'react-router'
 import AuthButtons from './AuthButtons'
 import Cart from './Cart'
 import UserDropDown from './UserDropDown'
+import { useUser } from '../../context/UserContext'
 
 const Navbar = () => {
+    const { loading, userInfo } = useUser()
+    console.log(userInfo)
+    console.log(loading)
     return (
         <header>
             <AuthButtons />
@@ -14,7 +18,10 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="navbar-end gap-3">
-                    <a className="btn btn-primary">Dashboard</a>
+                    {userInfo?.isAdmin && (
+                        <a className="btn btn-primary">Dashboard</a>
+                    )}
+
                     <Cart />
                     <UserDropDown />
                 </div>
