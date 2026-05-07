@@ -4,7 +4,7 @@ import axios from 'axios'
 
 // * Configuracion base de axios para autenticacion
 // Uso de rutas relativas con proxy de desarrollo (vite) para evitar CORS y cookies cross-origin
-const API_URL = '/api/auth'
+const API_URL = import.meta.env.VITE_BACKEND_URL + '/auth'
 //* http://localhost:3001/api/auth/register
 
 // * para incluir la cookie en las peticiones
