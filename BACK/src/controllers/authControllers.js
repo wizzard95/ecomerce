@@ -170,3 +170,13 @@ export const loginUser = async (req, res) => {
         })
     }
 }
+
+export const logout = (req, res) => {
+    res.cookie('accessToken', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // true
+        sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+    })
+        .status(200)
+        .json({ message: 'Cierre de sesion exitoso' })
+}

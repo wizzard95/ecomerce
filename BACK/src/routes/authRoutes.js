@@ -3,19 +3,17 @@ import {
     registerUser,
     profile,
     loginUser,
+    logout,
 } from '../controllers/authControllers.js'
 
 const router = express.Router()
 
 router.post('/register', registerUser)
 
+router.get('/profile', profile)
+
 router.post('/login', loginUser)
 
-router.post('/logout', (req, res) => {
-    console.log('Hiciste una peticion a POST a /logout')
-    res.json({ message: 'Hiciste una peticion a POST a /logout' })
-})
-
-router.get('/profile', profile)
+router.post('/logout', logout)
 
 export default router
