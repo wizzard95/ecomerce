@@ -91,4 +91,18 @@ export const registerService = async (
     }
 }
 
-export const logoutService = async () => {}
+export const logoutService = async () => {
+    try {
+        // Limpiar token del lado del cliente
+        localStorage.removeItem('token')
+        delete axios.defaults.headers.common['Authorization']
+
+        // Notificar al backend para limpiar la cookie
+        const response = await axios.post(`${API_URL}/logout`)
+        return response.data
+    } catch (error) {
+        throw new Error(
+            error.response?.data?.message || 'Error al cerrar la sesión',
+        )
+    }
+}

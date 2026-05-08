@@ -1,4 +1,21 @@
+import toast from 'react-hot-toast'
+import { useUser } from '../../context/UserContext'
+import { logoutService } from '../../services/authServices'
+
 const UserDropDown = () => {
+    const { setUserInfo } = useUser()
+
+    const handleLogout = async () => {
+        try {
+            await logoutService()
+            setUserInfo({})
+            toast.success('Sesión cerrada correctamente')
+        } catch (error) {
+            console.error('Error al cerrar sesión', error)
+            toast.error('Error al cerrar sesión')
+        }
+    }
+
     return (
         <div className="dropdown dropdown-end">
             <div
@@ -27,7 +44,9 @@ const UserDropDown = () => {
                     <a className="justify-between">Configuración</a>
                 </li>
                 <li>
-                    <a className="justify-between">Cerrar sesión</a>
+                    <a onClick={handleLogout} className="justify-between">
+                        Cerrar sesión
+                    </a>
                 </li>
             </ul>
         </div>
