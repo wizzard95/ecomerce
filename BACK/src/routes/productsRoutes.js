@@ -1,4 +1,5 @@
 import express from 'express'
+import { createProduct } from '../controllers/productsControllers.js'
 
 const router = express.Router()
 
@@ -10,7 +11,7 @@ router.get('/', (req, res) => {
 router.get('/:id', () => {})
 
 //* rutas protegidas (solo administradores pueden modificar producto)
-router.post('/', () => {}) // crear producto
+router.post('/', createProduct) // crear producto
 router.put('/id', () => {}) // actualizar un producto
 router.delete('/id', () => {}) // eliminar un producto
 

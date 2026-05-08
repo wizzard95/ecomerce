@@ -23,5 +23,17 @@ POST http://localhost:3001/api/auth/logout
 ### * PETICIONES DE PRODUCTOS
 GET http://localhost:3001/api/products
 
+
 ### * POST DE CREAR PRODUCTOS
 POST  http://localhost:3001/api/products
+Content-Type: application/json
+
+{
+    "name": "Taza de One Piece",
+    "description": "Taza de One Piece edicion limitada",
+    "price": 5000,
+    "stock": 10,
+    "imageUrl": "https://res.cloudinary.com/dur3rpnbo/image/upload/v1778281636/tazonOnePiece_ygvotu.webp"
+
+}
+
