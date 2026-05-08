@@ -172,10 +172,11 @@ export const loginUser = async (req, res) => {
 }
 
 export const logout = (req, res) => {
-    res.cookie('accessToken', {
+    res.clearCookie('accessToken', {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // true
+        secure: process.env.NODE_ENV === 'production',
         sameSite: process.env.NODE_ENV == 'production' ? 'none' : 'lax',
+        path: '/',
     })
         .status(200)
         .json({ message: 'Cierre de sesion exitoso' })
