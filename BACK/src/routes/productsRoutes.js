@@ -3,7 +3,9 @@ import express from 'express'
 const router = express.Router()
 
 // * rutas publicas
-router.get('/', () => {})
+router.get('/', (req, res) => {
+    res.json({ message: 'OBTENER TODOS LOS PRODUCTOS' })
+})
 
 router.get('/:id', () => {})
 
