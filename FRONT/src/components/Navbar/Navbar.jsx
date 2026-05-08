@@ -6,8 +6,8 @@ import { useUser } from '../../context/UserContext'
 
 const Navbar = () => {
     const { loading, userInfo } = useUser()
-    console.log(userInfo)
-    console.log(loading)
+    /* console.log(userInfo)
+    console.log(loading) */
     return (
         <header>
             <AuthButtons />

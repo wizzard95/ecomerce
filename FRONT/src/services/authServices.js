@@ -28,22 +28,29 @@ export const getProfileService = async () => {
     }
 }
 
-export const loginService = async (data) => {
+export const loginService = async (data, reset, setRedirect, setUserInfo) => {
     try {
         const response = await axios.post(`${API_URL}/login`, data, {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
         })
-        // Si el backend devuelve un token, guardarlo y configurar cabecera
-        const token = response.data?.token
-        if (token) {
-            localStorage.setItem('token', token)
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+        //* comprobar si la respuesta es exitosa
+        if (response.status === 200) {
+            setUserInfo(response.data)
+            reset()
+            setRedirect(true)
+            return {
+                succes: true,
+                message: 'Inicio de sesión exitoso',
+            }
         }
-        return response.data
     } catch (error) {
-        console.log(error)
-        throw error
+        //console.log('Error al loguearse')
+        return {
+            succes: false,
+            message: 'Error al loguearse',
+        }
     }
 }
 
