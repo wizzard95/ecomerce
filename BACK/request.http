@@ -19,3 +19,9 @@ Content-Type: application/json
 
 ### * LOGOUT USER
 POST http://localhost:3001/api/auth/logout
+
+### * PETICIONES DE PRODUCTOS
+GET http://localhost:3001/api/products
+
+### * POST DE CREAR PRODUCTOS
+POST  http://localhost:3001/api/products
