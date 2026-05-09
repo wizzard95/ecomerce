@@ -41,11 +41,17 @@ export const updateProduct = async (req, res) => {
         //res.json(validateData)
 
         //* 2.- Buscar y actualizar el producto desde la bd
-        const updateProduct = await ProductModel.findByIdAndUpdate(
+        const updatedProduct = await ProductModel.findByIdAndUpdate(
             req.params.id,
             validateData,
             { new: true, runValidators: true }
         )
+        //* manejar el caso de que el producto no exista
+        if (!updatedProduct) {
+            return res.status(404).json({ message: 'Producto no encontrado' })
+        }
+        //* Devolver el producto actualizado
+        return res.status(200).json(updatedProduct)
     } catch (error) {
         res.json({ message: 'Error al actualizar producto' })
     }
