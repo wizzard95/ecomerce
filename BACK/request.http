@@ -30,7 +30,7 @@ Content-Type: application/json
 
 {
     "name": "Taza de One Piece",
-    "description": "Taza de One Piece edicion limitada",
+    "description": "Taza de One Piece con forma de barril edicion limitada",
     "price": 5000,
     "stock": 10,
     "imageUrl": "https://res.cloudinary.com/dur3rpnbo/image/upload/v1778281636/tazonOnePiece_ygvotu.webp"
