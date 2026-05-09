@@ -37,3 +37,10 @@ Content-Type: application/json
 
 }
 
+### * PUT Actualizar producto
+PUT http://localhost:3001/api/products/69fe7b6746623fdb16e35788
+Content-Type: application/json
+
+{
+    "price": 1000
+}

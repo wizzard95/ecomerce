@@ -2,6 +2,7 @@ import { productSchema } from '../schemas/productSchema.js'
 import ProductModel from '../models/ProductModel.js'
 import { ZodError } from 'zod'
 
+// crear producto
 export const createProduct = async (req, res) => {
     try {
         // * traer los datos del producto
@@ -29,5 +30,17 @@ export const createProduct = async (req, res) => {
         }
 
         return res.status(500).json({ message: 'Error al crear el producto' })
+    }
+}
+
+// actualizar producto
+export const updateProduct = async (req, res) => {
+    try {
+        //* 1.- validar los datos de entrada con zod
+        const validateData = productSchema.partial().parse(req.body)
+
+        res.json(validateData)
+    } catch (error) {
+        res.json({ message: 'Error al actualizar producto' })
     }
 }
