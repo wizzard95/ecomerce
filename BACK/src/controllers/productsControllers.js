@@ -38,8 +38,14 @@ export const updateProduct = async (req, res) => {
     try {
         //* 1.- validar los datos de entrada con zod
         const validateData = productSchema.partial().parse(req.body)
+        //res.json(validateData)
 
-        res.json(validateData)
+        //* 2.- Buscar y actualizar el producto desde la bd
+        const updateProduct = await ProductModel.findByIdAndUpdate(
+            req.params.id,
+            validateData,
+            { new: true, runValidators: true }
+        )
     } catch (error) {
         res.json({ message: 'Error al actualizar producto' })
     }
