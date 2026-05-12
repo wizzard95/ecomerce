@@ -6,11 +6,11 @@ const Home = () => {
 
     return (
         <div>
-            <h1 className="text-4xl font-bold text-center mt-7 mb-2 text-purple-700 uppercase">
+            {/* <h1 className="text-4xl font-bold text-center mt-7 mb-2 text-purple-700 uppercase">
                 Mi Ecomerce
-            </h1>
+            </h1> */}
             <p className="text-center mb-4">Elige tu producto ⬇️</p>
-            <div>
+            <div className="flex flex-wrap gap-5 justify-center">
                 {productsLoading ? (
                     <div className="loading loading-spinner"></div>
                 ) : error ? (

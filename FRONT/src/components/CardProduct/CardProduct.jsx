@@ -8,7 +8,7 @@ const CardProduct = ({
     const { isAuthenticated } = useUser()
 
     return (
-        <div className="card bg-base-100 w-80 shadow-lg">
+        <div className="card bg-base-100 w-80 lg:w-[30%] shadow-lg">
             <figure>
                 <img
                     className="aspect-[9/9] object-cover"
