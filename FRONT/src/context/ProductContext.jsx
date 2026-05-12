@@ -58,6 +58,7 @@ export const ProductContextProvider = ({ children }) => {
         productLoading,
         error,
         getProducts,
+        getProductById,
     }
     return (
         <ProductContext.Provider value={value}>
