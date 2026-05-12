@@ -28,3 +28,15 @@ export const getCartService = async (userId) => {
         throw new Error('Error al obtener el carrito')
     }
 }
+//* servicio para actualizar la cantidad de un producto en el carrito
+export const updateCartService = async (userId, productId, quantity) => {
+    try {
+        const response = await axios.put(`${API_URL}/update/${userId}`, {
+            productId,
+            quantity,
+        })
+        return response.data
+    } catch (error) {
+        throw new Error('Error al actualizar el carrito')
+    }
+}
