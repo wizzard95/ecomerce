@@ -40,3 +40,19 @@ export const updateCartService = async (userId, productId, quantity) => {
         throw new Error('Error al actualizar el carrito')
     }
 }
+//* servicio para eliminar un producto del carrito
+export const removeCartService = async (userId, productId) => {
+    try {
+        const response = await axios.delete(
+            `${API_URL}/removeProduct/${userId}`,
+            {
+                data: {
+                    productId,
+                },
+            },
+        )
+        return response.data
+    } catch (error) {
+        throw new Error('Error al eliminar un producto del carrito')
+    }
+}
