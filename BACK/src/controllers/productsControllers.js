@@ -78,3 +78,15 @@ export const getAllProducts = async (req, res) => {
             .json({ message: 'Error al obtener los productos' })
     }
 }
+
+//* Eliminar un producto por ID
+export const deleteProduct = async (req, res) => {
+    try {
+        const product = await ProductModel.findByIdAndDelete(req.params.id)
+        return res.status(200).json(product)
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: 'Error al eliminar el producto' })
+    }
+}
