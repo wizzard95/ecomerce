@@ -1,0 +1,27 @@
+import { Link } from 'react-router'
+import { useUser } from '../../context/UserContext'
+import { FaShoppingCart } from 'react-icons/fa'
+
+const CardProduct = ({
+    product: { _id, name, price, imageUrl, description, stock },
+}) => {
+    const { isAuthenticated } = useUser()
+
+    return (
+        <div className="card bg-base-100 w-80 shadow-lg">
+            <figure>
+                <img
+                    className="aspect-[9/9] object-cover"
+                    src={imageUrl}
+                    alt="Tazas"
+                />
+            </figure>
+            <div className="card-body">
+                <h2 className="card-title">{name}</h2>
+                <div className="badge badge-warning">{price}</div>
+                <p>{description}</p>
+            </div>
+        </div>
+    )
+}
+export default CardProduct
