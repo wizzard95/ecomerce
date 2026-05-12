@@ -29,11 +29,11 @@ POST  http://localhost:3001/api/products
 Content-Type: application/json
 
 {
-    "name": "Taza de One Piece",
-    "description": "Taza de One Piece con forma de barril edicion limitada",
-    "price": 5000,
-    "stock": 10,
-    "imageUrl": "https://res.cloudinary.com/dur3rpnbo/image/upload/v1778281636/tazonOnePiece_ygvotu.webp"
+    "name": "Taza de Boku no Hero",
+    "description": "Taza de One Piece con con varios de los personajes, edicion limitada",
+    "price": 7000,
+    "stock": 40,
+    "imageUrl": "https://res.cloudinary.com/dur3rpnbo/image/upload/v1778601284/tazonBokuNoHero_l3pqu8.webp"
 
 }
 
@@ -45,3 +45,5 @@ Content-Type: application/json
     "price": 2000,
     "stock": 15
 }
+### * GET Obtener un producto por ID
+GET http://localhost:3001/api/products/69fe7b6746623fdb16e35788

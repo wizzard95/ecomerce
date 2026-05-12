@@ -38,12 +38,19 @@ const PORT = 3001
 app.use('/api/auth', authRoutes)
 app.use('/api/products', productRoutes)
 
+app.use((err, req, res, next) => {
+    console.error('Error no manejado:', err)
+    res.status(500).json({ message: 'Error interno del servidor' })
+})
+
 connectDB()
     .then(() => {
         app.listen(PORT, () => {
             console.log(`Servidor corriendo en el puerto ${PORT}`)
         })
     })
-    .catch(() => {
+    .catch((error) => {
+        console.error('Error al iniciar el servidor:', error)
         disconnectDB()
+        process.exit(1)
     })

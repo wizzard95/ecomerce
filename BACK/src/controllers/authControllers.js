@@ -50,7 +50,8 @@ export const registerUser = async (req, res) => {
             .status(201)
             .json({ message: 'Usuario registrado con exito', token })
     } catch (error) {
-        res.json(error)
+        console.error('Error en registerUser:', error)
+        res.status(500).json({ message: 'Error al registrar usuario' })
     }
 }
 
@@ -164,10 +165,8 @@ export const loginUser = async (req, res) => {
                 .json(error.issues.map((issue) => ({ message: issue.message })))
         }
 
-        res.status(500).json({
-            message: 'Error al iniciar sesión',
-            error: error,
-        })
+        console.error('Error en loginUser:', error)
+        res.status(500).json({ message: 'Error al iniciar sesión' })
     }
 }
 

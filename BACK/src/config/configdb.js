@@ -1,4 +1,4 @@
-import { mongoose } from 'mongoose'
+import mongoose from 'mongoose'
 
 export const connectDB = async () => {
     try {
@@ -9,11 +9,11 @@ export const connectDB = async () => {
             .replace('<db_password>', process.env.MONGO_DB_PASSWORD)
             .replace('<db_name>', process.env.MONGO_DB_NAME)
 
-        /* console.log(dbURI) */
         await mongoose.connect(dbURI)
         console.log('Conectado a MongoDB')
     } catch (error) {
-        console.error('Error al conectarse a MongoDB', error)
+        console.error('Error al conectarse a MongoDB:', error.message || error)
+        process.exit(1)
     }
 }
 

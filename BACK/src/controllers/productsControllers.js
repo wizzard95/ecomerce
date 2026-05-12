@@ -56,3 +56,13 @@ export const updateProduct = async (req, res) => {
         res.json({ message: 'Error al actualizar producto' })
     }
 }
+
+//* Obtener producto por ID
+export const getProductById = async (req, res) => {
+    try {
+        const product = await ProductModel.findById(req.params.id)
+        return res.status(200).json(product)
+    } catch (error) {
+        return res.status(500).json({ message: 'Error al obtener el producto' })
+    }
+}
