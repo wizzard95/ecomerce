@@ -24,6 +24,7 @@ export const ProductContextProvider = ({ children }) => {
     const getProducts = useCallback(async () => {
         try {
             const response = await axios.get(API_URL)
+            console.log('RESPUESTA: ', response)
             setProducts(response.data)
         } catch (error) {
             setError(error.message || 'Error al obtener los productos')
@@ -43,7 +44,11 @@ export const ProductContextProvider = ({ children }) => {
         error,
         getProducts,
     }
-    return <ProductContext.Provider value={value}></ProductContext.Provider>
+    return (
+        <ProductContext.Provider value={value}>
+            {children}
+        </ProductContext.Provider>
+    )
 }
 //* hook personalizado para traer valores (values)
 export const useProduct = () => useContext(ProductContext)
