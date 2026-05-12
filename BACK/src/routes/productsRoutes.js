@@ -3,14 +3,13 @@ import {
     createProduct,
     updateProduct,
     getProductById,
+    getAllProducts,
 } from '../controllers/productsControllers.js'
 
 const router = express.Router()
 
 // * rutas publicas
-router.get('/', (req, res) => {
-    res.json({ message: 'OBTENER TODOS LOS PRODUCTOS' })
-})
+router.get('/', getAllProducts) //* obtener todos los productos
 
 router.get('/:id', getProductById) //* Obtener productos por id
 

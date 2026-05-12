@@ -66,3 +66,15 @@ export const getProductById = async (req, res) => {
         return res.status(500).json({ message: 'Error al obtener el producto' })
     }
 }
+
+//* Obtener todos los productos
+export const getAllProducts = async (req, res) => {
+    try {
+        const products = await ProductModel.find()
+        return res.status(200).json(products)
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: 'Error al obtener los productos' })
+    }
+}
