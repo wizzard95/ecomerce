@@ -66,3 +66,13 @@ export const clearCartService = async (userId) => {
         throw new Error('Error al limpiar el carrito')
     }
 }
+//* servicio para obtener el total del carrito
+export const getCartTotalService = async (userId) => {
+    try {
+        const response = await axios.get(`${API_URL}/total/${userId}`)
+
+        return response.data
+    } catch (error) {
+        throw new Error('Error al obtener el total del carrito')
+    }
+}
