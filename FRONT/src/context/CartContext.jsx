@@ -30,4 +30,12 @@ export const CartContextProvider = ({ children }) => {
             return []
         }
     }
+    //* funcionar para guardar el carrito en el localStorage
+    const saveLocalCart = (cartItems) => {
+        try {
+            localStorage.setItem('cart', JSON.stringify(cartItems))
+        } catch (error) {
+            console.error('Error al guardar el carrito local', error)
+        }
+    }
 }
