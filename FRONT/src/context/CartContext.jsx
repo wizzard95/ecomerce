@@ -30,12 +30,46 @@ export const CartContextProvider = ({ children }) => {
             return []
         }
     }
-    //* funcionar para guardar el carrito en el localStorage
+    //* funcion para guardar el carrito en el localStorage
     const saveLocalCart = (cartItems) => {
         try {
             localStorage.setItem('cart', JSON.stringify(cartItems))
         } catch (error) {
             console.error('Error al guardar el carrito local', error)
+        }
+    }
+    //* funcion para cargar el carrito (backend o localstorage)
+    const loadCart = async () => {
+        if (isAuthenticated()) {
+            // * usuario autenticado: cargar desde backend
+            try {
+                setLoading(true)
+                const userId = getUserId()
+                const response = await getCartService(userId)
+
+                //* transformar los datos del backend al formato del front
+                const cartItems = response.cart?.products?.map(
+                    (product) =>
+                        ({
+                            _id: product.productId._id,
+                            _id: product.productId.name,
+                            _id: product.productId.price,
+                            _id: product.productId.imageUrl,
+                            _id: product.productId.description,
+                            _id: product.productId.stock,
+                            _id: product.productId.quantity,
+                        }) || [],
+                )
+                setCart(cartItems)
+            } catch (error) {
+            } finally {
+                setLoading(true)
+            }
+        } else {
+            //* usuario no autenticado: cargar desde localstorage
+            const localCart = loadLocalCart()
+            setCart(localCart)
+            setLoading(false)
         }
     }
 }
