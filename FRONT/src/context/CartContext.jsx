@@ -72,4 +72,36 @@ export const CartContextProvider = ({ children }) => {
             setLoading(false)
         }
     }
+    //* funcion para sincronizar carrito local con el backend
+    const syncCartWithBackend = async () => {
+        const localCart = loadLocalCart()
+
+        if (localCart.lenght > 0 && isAuthenticated()) {
+            try {
+                setLoading(true)
+                const userId = getUserId()
+
+                //* agregar cada producto del carrito local al backend
+                for (const item of localCart) {
+                    try {
+                        await addToCartService(userId, item._id, item.quantity)
+                    } catch (error) {
+                        console.error(
+                            `Error al sicronizar producto ${item.name}`,
+                        )
+                    }
+                }
+                //* limpiar localstorage despues de sincronizar
+                localStorage.removeItem('cart')
+
+                //* reacargar carrito desde el backend
+                await loadCart()
+                toast.success(`Carrito sincronizado con exito`)
+            } catch (error) {
+                console.error('Error al sincronizar carrito', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+    }
 }
