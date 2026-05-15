@@ -139,4 +139,20 @@ export const CartContextProvider = ({ children }) => {
             isMounted = false
         }
     }, [])
+
+    //* escuchar cambios de autenticacion por separado
+    useEffect(() => {
+        const previousAuthState =
+            localStorage.getItem('wasAuthenticated') === true
+        const currentAuthState = isAuthenticated()
+
+        //* solo actuar si realmente cambio el estado de autenticacion
+        if (previousAuthState !== currentAuthState && cart.length === 0) {
+            loadCart()
+            localStorage.setItem(
+                'wasAuthenticated',
+                currentAuthState.toString(),
+            )
+        }
+    }, [])
 }
