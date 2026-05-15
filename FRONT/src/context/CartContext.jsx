@@ -104,4 +104,39 @@ export const CartContextProvider = ({ children }) => {
             }
         }
     }
+    //* cargar carrito al inicializar
+    useEffect(() => {
+        let isMounted = true
+
+        const initializeCart = async () => {
+            // * Esperar un poco para el user context se estabilice
+            await new Promise((resolve) => setTimeout(resolve, 100))
+
+            if (!isMounted) return
+
+            const previousAuthState = localStorage.getItem('wasAuthenticated')
+            const currentAuthState = isAuthenticated()
+
+            if (!previousAuthState && currentAuthState) {
+                //* usuario acaba de iniciar sesion: sincronizar el carrito local
+                await syncCartWithBackend()
+            } else {
+                // * cargart carrito normalmente
+                await loadCart()
+            }
+            //* guardar estado de autenticacion actual
+            localStorage.setItem(
+                'wasAuthenticated',
+                currentAuthState.toString(),
+            )
+
+            setLoading(false)
+        }
+
+        initializeCart()
+
+        return () => {
+            isMounted = false
+        }
+    }, [])
 }
