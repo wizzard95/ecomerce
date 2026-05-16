@@ -186,6 +186,41 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
+    //* eliminar producto del carrito
+    const removeFromCart = async (productId) => {
+        if (isAuthenticated()) {
+            try {
+                setLoading(true)
+                const userId = getUserId()
+                await removeFromCart(userId, productId)
+
+                //* recargar el carrito despues de eliminar
+                await loadCart()
+                toast.success('Producto eliminado del carrito')
+            } catch (error) {
+                console.error('Error al eliminar producto del carrito: ', error)
+                toast.error('Error al eliminar producto del carrito')
+            } finally {
+                setLoading(false)
+            }
+        } else {
+            try {
+                const currentCart = cart.filter(
+                    (item) => item._id !== productId,
+                )
+                setCart(currentCart)
+                saveLocalCart(currentCart)
+                toast.success('Producto eliminado del carrito')
+            } catch (error) {
+                console.error(
+                    'Error al eliminar producto del carrito local: ',
+                    error,
+                )
+                toast.error('Error al eliminar producto del carrito local')
+            }
+        }
+    }
+
     //* escuchar cambios de autenticacion por separado
     useEffect(() => {
         const previousAuthState =
