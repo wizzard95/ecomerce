@@ -52,14 +52,14 @@ export const CartContextProvider = ({ children }) => {
                     (product) =>
                         ({
                             _id: product.productId._id,
-                            _id: product.productId.name,
-                            _id: product.productId.price,
-                            _id: product.productId.imageUrl,
-                            _id: product.productId.description,
-                            _id: product.productId.stock,
-                            _id: product.productId.quantity,
-                        }) || [],
-                )
+                            name: product.productId.name,
+                            price: product.productId.price,
+                            imageUrl: product.productId.imageUrl,
+                            description: product.productId.description,
+                            stock: product.productId.stock,
+                            quantity: product.productId.quantity,
+                        })) || [],
+                
                 setCart(cartItems)
             } catch (error) {
             } finally {
