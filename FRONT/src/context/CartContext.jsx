@@ -257,6 +257,35 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
+    //* Limpiar el carrito
+    const clearCart = async () => {
+        if (isAuthenticated()) {
+            try {
+                setLoading(true)
+                const userId = getUserId()
+                await clearCartService(userId)
+
+                //* limpiar el estado local
+                setCart([])
+                toast.success('Carrito vacio')
+            } catch (error) {
+                console.error('Error al vaciar el carrito', error)
+                toast.error('Error al vaciar el carrito')
+            } finally {
+                setLoading(false)
+            }
+        } else {
+            try {
+                setCart([])
+                saveLocalCart([])
+                toast.success('Carrito vacio')
+            } catch (error) {
+                console.error('Error al vaciar el carrito local', error)
+                toast.error('Error al vaciar el carrito local')
+            }
+        }
+    }
+
     //* escuchar cambios de autenticacion por separado
     useEffect(() => {
         const previousAuthState =
