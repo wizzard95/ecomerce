@@ -315,4 +315,31 @@ export const CartContextProvider = ({ children }) => {
         )
         setItemsQuantity(newItemsQuantity)
     }, [cart])
+
+    //* Abrir modal
+    const openModal = () => setIsModalOpen(true)
+    //* cerrar el modal
+    const closeModal = () => setIsModalOpen(false)
+
+    return (
+        <CartContext.Provider
+            value={{
+                cart,
+                total,
+                itemsQuantity,
+                isModalOpen,
+                closeModal,
+                loading,
+                addToCart,
+                removeFromCart,
+                clearCart,
+                openModal,
+                updateQuantity,
+                loadCart,
+            }}
+        >
+            {children}
+        </CartContext.Provider>
+    )
 }
+export const useCart = () => useContext(CartContext)
