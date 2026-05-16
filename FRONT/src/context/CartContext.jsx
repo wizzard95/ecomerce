@@ -17,7 +17,8 @@ export const CartContextProvider = ({ children }) => {
     const [total, setTotal] = useState(0)
     const [itemsQuantity, setItemsQuantity] = useState(0)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [loading, setLoading] = useState([])
+    const [loading, setLoading] = useState(true)
+
     const { getUserId, isAuthenticated } = useUser()
 
     //* funcion para cargar el carrito desde el localStorage
@@ -48,28 +49,33 @@ export const CartContextProvider = ({ children }) => {
                 const response = await getCartService(userId)
 
                 //* transformar los datos del backend al formato del front
-                const cartItems = response.cart?.products?.map(
-                    (product) =>
-                        ({
-                            _id: product.productId._id,
-                            name: product.productId.name,
-                            price: product.productId.price,
-                            imageUrl: product.productId.imageUrl,
-                            description: product.productId.description,
-                            stock: product.productId.stock,
-                            quantity: product.productId.quantity,
-                        })) || [],
-                
+                const cartItems =
+                    response.cart?.products?.map((product) => ({
+                        _id: product.productId._id,
+                        name: product.productId.name,
+                        price: product.productId.price,
+                        imageUrl: product.productId.imageUrl,
+                        description: product.productId.description,
+                        stock: product.productId.stock,
+                        quantity: product.productId.quantity,
+                    })) || []
+
                 setCart(cartItems)
             } catch (error) {
+                console.log(
+                    'Error al cargar el carrito del backend: ',
+                    error.message,
+                )
+                //* si falla el backend, cargar desde el
+                const localCart = loadLocalCart()
+                setCart(localCart)
             } finally {
-                setLoading(true)
+                setLoading(false)
             }
         } else {
             //* usuario no autenticado: cargar desde localstorage
             const localCart = loadLocalCart()
             setCart(localCart)
-            setLoading(false)
         }
     }
     //* funcion para sincronizar carrito local con el backend
@@ -88,6 +94,7 @@ export const CartContextProvider = ({ children }) => {
                     } catch (error) {
                         console.error(
                             `Error al sicronizar producto ${item.name}`,
+                            error,
                         )
                     }
                 }
