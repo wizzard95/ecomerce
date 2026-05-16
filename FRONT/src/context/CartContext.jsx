@@ -140,6 +140,52 @@ export const CartContextProvider = ({ children }) => {
         }
     }, [])
 
+    //* añadir producto al carrito
+    const addToCart = async (product, quantity = 1) => {
+        if (isAuthenticated()) {
+            //* si el usuario está autenticado / Usar el backend
+            try {
+                setLoading(true)
+                const userId = getUserId()
+                await addToCartService(userId, product._id, quantity)
+
+                //* recargar el carrito despues de agregar
+                await loadCart()
+                toast.success('Producto agregador al carrito')
+            } catch (error) {
+                console.error('Error al agregar producto al carrito', error)
+                toast.error('Error al agregar producto al carrito')
+            } finally {
+                setLoading(false)
+            }
+        } else {
+            //* usuario no autenticado: usar localstorage
+            try {
+                const currentCart = [...cart]
+                const existingIndex = currentCart.findIndex(
+                    (item) => item._id === product._id,
+                )
+                if (existingIndex > -1) {
+                    //* producto ya existe, actualizar cantidad
+                    currentCart[existingIndex].quantity += quantity
+                } else {
+                    //* nuevo producto: agregar
+                    currentCart.push({ ...product, quantity })
+
+                    setCart(currentCart)
+                    saveLocalCart(currentCart)
+                    toast.success('Producto agregado al carrito')
+                }
+            } catch (error) {
+                console.error(
+                    'Error al agregar producto al carrito local: ',
+                    error,
+                )
+                toast.error('Error al agregar producto al carrito')
+            }
+        }
+    }
+
     //* escuchar cambios de autenticacion por separado
     useEffect(() => {
         const previousAuthState =
