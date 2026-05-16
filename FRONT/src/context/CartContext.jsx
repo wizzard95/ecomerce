@@ -221,6 +221,42 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
+    //* actualizar cantidad de productos en el carrito
+    const updateQuantity = async (productId, newQuantity) => {
+        if (newQuantity < 1) {
+            toast.error('La cantidad deber ser al menos 1')
+            return
+        }
+        if (isAuthenticated()) {
+            try {
+                setLoading(true)
+                const userId = getUserId()
+                await updateCartService(userId, productId, newQuantity)
+
+                //* recargar el carrito despues de actualizar
+                await loadCart()
+                toast.success('Cantidad actualizada')
+            } catch (error) {
+                console.error('Error al actualizar la cantidad', error)
+                toast.error('Error al actualizar la cantidad')
+            }
+        } else {
+            try {
+                const currentCart = cart.map((item) =>
+                    item._id === productId
+                        ? { ...item, quantity: newQuantity }
+                        : item,
+                )
+                setCart(currentCart)
+                saveLocalCart(currentCart)
+                toast.success('Cantidad actulizada')
+            } catch (error) {
+                console.error('Error al actualizar la cantidad local', error)
+                toast.error('Error al actualizar la cantidad')
+            }
+        }
+    }
+
     //* escuchar cambios de autenticacion por separado
     useEffect(() => {
         const previousAuthState =
