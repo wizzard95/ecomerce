@@ -155,4 +155,18 @@ export const CartContextProvider = ({ children }) => {
             )
         }
     }, [])
+    //* calcular total y cantidad de items cuando cambia el carrito
+    useEffect(() => {
+        const newTotal = cart.reduce(
+            (acc, item) => acc + item.price * (item.quantity || 1),
+            0,
+        )
+        setTotal(newTotal)
+
+        const newItemsQuantity = cart.reduce(
+            (acc, item) => acc + (item.quantity || 1),
+            0,
+        )
+        setItemsQuantity(newItemsQuantity)
+    }, [cart])
 }
