@@ -44,6 +44,7 @@ Content-Type: application/json
 {
     "description": "Taza de Boku no Hero Academia con foto de varios personajes, edicion limitada"
 }
+
 ### * GET Obtener un producto por ID
 GET http://localhost:3001/api/products/69fe7b6746623fdb16e35788
 
@@ -54,8 +55,9 @@ DELETE http://localhost:3001/api/products/69fe7b6746623fdb16e35788
 ### * ADD TO CART
 POST http://localhost:3001/api/cart/add
 Content-Type: application/json
+
 {
     "userId": "6a034643e64bdfb18c61ca2d",
-    "productId": "69fe7b6746623fdb16e35788",
+    "productId": "6a0357f67d089305afed414c",
     "quantity": 1
 }
