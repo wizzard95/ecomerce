@@ -3,6 +3,7 @@ import express from 'express'
 import dotenv from 'dotenv' // ? SIRVE PARA LEER LAS VARIABLES DE ENTORNO .ENV
 import authRoutes from './routes/authRoutes.js'
 import productRoutes from './routes/productsRoutes.js'
+import cartRoutes from './routes/cartRoutes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
@@ -37,6 +38,7 @@ const PORT = 3001
 // * RUTAS API
 app.use('/api/auth', authRoutes)
 app.use('/api/products', productRoutes)
+app.use('/api/cart', cartRoutes)
 
 app.use((err, req, res, next) => {
     console.error('Error no manejado:', err)
