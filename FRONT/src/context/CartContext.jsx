@@ -19,7 +19,7 @@ export const CartContextProvider = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [loading, setLoading] = useState(true)
 
-    const { getUserId, isAuthenticated } = useUser()
+    const { getUserId, isAuthenticated, loading: userLoading } = useUser()
 
     //* funcion para cargar el carrito desde el localStorage
     const loadLocalCart = () => {
@@ -111,41 +111,6 @@ export const CartContextProvider = ({ children }) => {
             }
         }
     }
-    //* cargar carrito al inicializar
-    useEffect(() => {
-        let isMounted = true
-
-        const initializeCart = async () => {
-            // * Esperar un poco para el user context se estabilice
-            await new Promise((resolve) => setTimeout(resolve, 100))
-
-            if (!isMounted) return
-
-            const previousAuthState = localStorage.getItem('wasAuthenticated')
-            const currentAuthState = isAuthenticated()
-
-            if (!previousAuthState && currentAuthState) {
-                //* usuario acaba de iniciar sesion: sincronizar el carrito local
-                await syncCartWithBackend()
-            } else {
-                // * cargart carrito normalmente
-                await loadCart()
-            }
-            //* guardar estado de autenticacion actual
-            localStorage.setItem(
-                'wasAuthenticated',
-                currentAuthState.toString(),
-            )
-
-            setLoading(false)
-        }
-
-        initializeCart()
-
-        return () => {
-            isMounted = false
-        }
-    }, [])
 
     //* añadir producto al carrito
     const addToCart = async (product, quantity = 1) => {
@@ -292,6 +257,42 @@ export const CartContextProvider = ({ children }) => {
             }
         }
     }
+
+    //* cargar carrito al inicializar
+    useEffect(() => {
+        let isMounted = true
+
+        const initializeCart = async () => {
+            // * Esperar un poco para el user context se estabilice
+            await new Promise((resolve) => setTimeout(resolve, 100))
+
+            if (!isMounted) return
+
+            const previousAuthState = localStorage.getItem('wasAuthenticated')
+            const currentAuthState = isAuthenticated()
+
+            if (!previousAuthState && currentAuthState) {
+                //* usuario acaba de iniciar sesion: sincronizar el carrito local
+                await syncCartWithBackend()
+            } else {
+                // * cargart carrito normalmente
+                await loadCart()
+            }
+            //* guardar estado de autenticacion actual
+            localStorage.setItem(
+                'wasAuthenticated',
+                currentAuthState.toString(),
+            )
+
+            setLoading(false)
+        }
+
+        initializeCart()
+
+        return () => {
+            isMounted = false
+        }
+    }, [userLoading])
 
     //* escuchar cambios de autenticacion por separado
     useEffect(() => {
