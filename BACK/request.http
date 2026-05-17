@@ -57,7 +57,34 @@ POST http://localhost:3001/api/cart/add
 Content-Type: application/json
 
 {
-    "userId": "6a034643e64bdfb18c61ca2d",
-    "productId": "6a0357f67d089305afed414c",
+    "userId": "69f828b1df1d6946d08e6ffc",
+    "productId": "6a034db28a7f0e806c6bae25",
     "quantity": 1
 }
+
+### GET CART
+GET  http://localhost:3001/api/cart/get/68db32b4911ffe91d2eb26d6
+
+### UPDATE CART
+PUT http://localhost:3001/api/cart/update/68db32b4911ffe91d2eb26d6
+Content-Type: application/json
+
+{
+    "productId": "68e8c79c2b9db47045761a99",
+    "quantity": 3
+}
+
+### DELETE PRODUCT FROM CART
+DELETE http://localhost:3001/api/cart/removeProduct/68db32b4911ffe91d2eb26d6
+Content-Type: application/json
+
+{
+    "productId": "68e8c79c2b9db47045761a99"
+}
+
+### CLEAR CART
+DELETE http://localhost:3001/api/cart/clear/68db32b4911ffe91d2eb26d6
+Content-Type: application/json
+
+### GET CART TOTAL
+GET http://localhost:3001/api/cart/total/68db32b4911ffe91d2eb26d6
