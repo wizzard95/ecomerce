@@ -46,10 +46,14 @@ export const loginService = async (data, reset, setRedirect, setUserInfo) => {
             }
         }
     } catch (error) {
-        //console.log('Error al loguearse')
+        const serverMsg =
+            error.response?.data?.message ||
+            (Array.isArray(error.response?.data) &&
+                error.response.data[0]?.message) ||
+            'Error al loguearse'
         return {
             succes: false,
-            message: 'Error al loguearse',
+            message: serverMsg,
         }
     }
 }

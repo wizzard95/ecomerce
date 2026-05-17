@@ -25,3 +25,5 @@ const ModalCart = () => {
         </div>
     )
 }
+
+export default ModalCart
