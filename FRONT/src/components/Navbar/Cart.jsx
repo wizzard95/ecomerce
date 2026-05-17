@@ -1,3 +1,6 @@
+import { useCart } from '../../context/CartContext'
+import ModalCart from './ModalCart'
+
 const Cart = () => {
     return (
         <>
